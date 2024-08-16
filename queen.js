@@ -59,7 +59,7 @@ if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
 connectToWA()
 }
 } else if (connection === 'open') {
-console.log('😼Queen_Anju Is Installing... ')
+console.log('Queen_Anju Is Installing... ')
 const path = require('path');
 fs.readdirSync("./plugins/").forEach((plugin) => {
 if (path.extname(plugin).toLowerCase() == ".js") {
@@ -69,9 +69,9 @@ require("./plugins/" + plugin);
 console.log('Plugins installed successful ✅')
 console.log('Queen_Anju connected to whatsapp ✅')
 
-let up = `Queen_Anju connected successful ✅\n\nPREFIX: ${prefix}\n\nOWNER${ownerNumber}`;
+let up = `Queen_Anju connected successful ✅\n\nThanks for using Queen_Anju MD..\n\nPREFIX: ${prefix}\n\nOWNER: ${ownerNumber}`;
 
-conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/900435c6d3157c98c3c88.jpg` }, caption: up })
+conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/adc46970456c26cad0c15.jpg` }, caption: up })
 
 }
 })
