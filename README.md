@@ -23,9 +23,8 @@ And Subscribe GAMING RASH and give one star for queen anju.
     <br>
     <a href="https://github.com/Mrrashmika/Queen_Anju-MD/fork"><img title="QUEEN_ANJU-MD" src="https://img.shields.io/badge/FORK QUEEN_ANJU-h?color=black&style=for-the-badge&logo=stackshare"></a>
  - 2._Link with yoour whatsappp using pair code._
-   **Pair with WhatsApp*
-   <br> 
-   <p align="left">
+   **Pair with WhatsApp* 
+   <p align="center">
        <a href="https://queen-anju-pair.onrender.com">
          <img src="https://play-lh.googleusercontent.com/901aMQFFnVoX2T-YuJmTIwpPve_SUgMv_QSyzMSPtAqt_l0CyXN1DxfD6xXU0r2f9iM=w240-h480-rw" width="90" />
        </a>
