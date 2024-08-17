@@ -18,10 +18,13 @@ const url = data.url
 let desc = `
 😚QUEEN ANJU YT SONG DOWNLOADER😚
 
-title: ${data.title}
-description: ${data.description}
-time: ${data.timestamp}
-ago: ${data.views}
+Title: ${data.title}
+
+Description: ${data.description}
+
+Time: ${data.timestamp}
+
+Ago: ${data.views}
 
 👻POWERED BY GAMING RASH👻
 `
