@@ -69,7 +69,14 @@ require("./plugins/" + plugin);
 console.log('Plugins installed successful ✅')
 console.log('Queen_Anju connected to whatsapp ✅')
 
-let up = `Queen_Anju connected successful ✅\n\nThanks for using Queen_Anju MD..\n\nPREFIX: ${prefix}\n\nOWNER: ${ownerNumber}`;
+let up = `
+Queen_Anju connected successful ✅
+
+Thanks for using Queen_Anju MD..
+
+PREFIX: ${prefix}
+
+OWNER: ${ownerNumber}`;
 
 conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/adc46970456c26cad0c15.jpg` }, caption: up })
 
