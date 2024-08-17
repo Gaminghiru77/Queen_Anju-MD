@@ -63,15 +63,15 @@ const url = data.url
     
     
 let desc = `
-😚QUEEN ANJU YT VIDEO DOWNLOADER😚
+😚'-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-'😚
 
-Title: ${data.title}
+♡Title♡: ${data.title}
 
-Description: ${data.description}
+♡Description♡: ${data.description}
 
-Time: ${data.timestamp}
+♡Time♡: ${data.timestamp}
 
-Ago: ${data.views}
+♡Ago♡: ${data.views}
 
 ─╤╦︻ ꝒΘⱲƸⱤƊ ƁƳ Ɠ𐤠𐒄ƖƝƓ Ɽ𐤠ⳜǶ ︻╦╤─
 `
