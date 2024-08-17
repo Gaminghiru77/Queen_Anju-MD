@@ -15,7 +15,7 @@ const data = search.videos[0];
 const url = data.url
     
     
-let desc = '
+let desc = `
 😚QUEEN ANJU YT SONG DOWNLOADER😚
 
 title: ${data.title}
@@ -24,7 +24,7 @@ time: ${data.timestamp}
 ago: ${data.views}
 
 👻POWERED BY GAMING RASH👻
-'
+`
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
 
