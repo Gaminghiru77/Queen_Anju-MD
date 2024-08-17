@@ -16,17 +16,23 @@ const url = data.url
     
     
 let desc = `
-😚'-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-'😚
+⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
+        
+*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
 
-♡Title♡: ${data.title}
+ ➥ ᴛɪᴛʟᴇ -  ${data.title}
 
-♡Description♡: ${data.description}
+ ➥ ᴜʀʟ - : ${data.url}
 
-♡Time♡: ${data.timestamp}
+ ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
 
-♡Ago♡: ${data.views}
+ ➥ ᴠɪᴇᴡs - : ${data.views}
 
-─╤╦︻ ꝒΘⱲƸⱤƊ ƁƳ Ɠ𐤠𐒄ƖƝƓ Ɽ𐤠ⳜǶ ︻╦╤─
+ ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
+
+
+> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
 `
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
@@ -38,7 +44,7 @@ let downloadUrl = down.dl_url
 
 //send audio message
 await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek})
-await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"─╤╦︻ ꝒΘⱲƸⱤƊ ƁƳ Ɠ𐤠𐒄ƖƝƓ Ɽ𐤠ⳜǶ ︻╦╤─"},{quoted:mek})
+await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
 
 }catch(e){
 console.log(e)
@@ -63,17 +69,23 @@ const url = data.url
     
     
 let desc = `
-😚'-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-'😚
+⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
+        
+*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
 
-♡Title♡: ${data.title}
+ ➥ ᴛɪᴛʟᴇ -  ${data.title}
 
-♡Description♡: ${data.description}
+ ➥ ᴜʀʟ - : ${data.url}
 
-♡Time♡: ${data.timestamp}
+ ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
 
-♡Ago♡: ${data.views}
+ ➥ ᴠɪᴇᴡs - : ${data.views}
 
-─╤╦︻ ꝒΘⱲƸⱤƊ ƁƳ Ɠ𐤠𐒄ƖƝƓ Ɽ𐤠ⳜǶ ︻╦╤─
+ ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
+
+
+> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
 `
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
@@ -85,7 +97,7 @@ let downloadUrl = down.dl_url
 
 //send video message
 await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quoted:mek})
-await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fileName:data.title + ".mp4",caption:"─╤╦︻ ꝒΘⱲƸⱤƊ ƁƳ Ɠ𐤠𐒄ƖƝƓ Ɽ𐤠ⳜǶ ︻╦╤─"},{quoted:mek})
+await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fileName:data.title + ".mp4",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
 
 }catch(e){
 console.log(e)
