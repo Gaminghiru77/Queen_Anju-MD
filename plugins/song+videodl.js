@@ -16,15 +16,14 @@ const url = data.url
     
     
 let desc = '
+😚QUEEN ANJU YT SONG DOWNLOADER😚
 
-    😚QUEEN ANJU YT SONG DOWNLOADER😚
+title: ${data.title}
+description: ${data.description}
+time: ${data.timestamp}
+ago: ${data.views}
 
-    title: ${data.title}
-    description: ${data.description}
-    time: ${data.timestamp}
-    ago: ${data.views}
-
-    👻POWERED BY GAMING RASH👻
+👻POWERED BY GAMING RASH👻
 '
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
