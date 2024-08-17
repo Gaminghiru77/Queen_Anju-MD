@@ -17,7 +17,7 @@ let about = ` HELLOW THEIR &mention I AM QUEEN_ANJU WHATSAPP BOT
               > *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
               
               THANKS FOR USING QUEEN ANJU WHATSAPP BOT MD`
-return await conn.sendMessage(from,{caption:about},{quoted: mek})
+return await conn.sendMessage(from,{image: {url: config.ALIVE_IMG},caption:about},{quoted: mek})
 }catch(e){
 console.log(e)
 reply(`${e}`)
