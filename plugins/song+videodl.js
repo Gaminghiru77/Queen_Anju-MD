@@ -14,18 +14,7 @@ const search = await yts(q)
 const data = search.videos[0];
 const url = data.url
 
-let desc = '
-😗 *QUEEN_ANJU SONG DOWNLOADER* 😗
-
-title: ${data.title}
-description: ${data.description}
-time: ${data.timestamp}
-ago: ${data.ago}
-views: ${data.views}
-
-POWERD BY QUEEN_ANJU..
-
-'
+let desc = '😗 *QUEEN_ANJU SONG DOWNLOADER* 😗/n/ntitle: ${data.title}/n/ndescription: ${data.description}/n/ntime: ${data.timestamp}/n/nago: ${data.ago}/n/nviews: ${data.views}/n/nㅤ/n/nㅤ/n/n©⁜POWERED BY GAMING RASH©⁜'
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
 
