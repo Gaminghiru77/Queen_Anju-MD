@@ -13,7 +13,9 @@ if(!q) return reply("Please give me a url or title")
 const search = await yts(q)
 const data = search.videos[0];
 const url = data.url
-    let desc = '
+    
+    
+let desc = '
 
     😚QUEEN ANJU YT SONG DOWNLOADER😚
 
@@ -23,9 +25,7 @@ const url = data.url
     ago: ${data.views}
 
     👻POWERED BY GAMING RASH👻
-
-
-    '
+'
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
 
