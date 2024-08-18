@@ -42,13 +42,19 @@ await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:m
 let down = await fg.yta(url)
 let downloadUrl = down.dl_url
 
-//send audio message
-await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek})
-await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
+
+if (body.messages && body.messages[0].text) {
+    const userMessage = body.messages[0].text.body.trim();
+    const userId = body.messages[0].from;
+
+    if (userMessage === '1') {
+        await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek});
+    } else if (userMessage === '2') {    
+        await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
 
 }catch(e){
 console.log(e)
-  reply('${e}')
+  reply('Error')
 }
 })
 
@@ -101,6 +107,6 @@ await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fi
 
 }catch(e){
 console.log(e)
-  reply('${e}')
+  reply('Error')
 }
 })
