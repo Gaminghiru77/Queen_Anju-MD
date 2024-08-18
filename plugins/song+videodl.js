@@ -52,10 +52,7 @@ if (body.messages && body.messages[0].text) {
     } else if (userMessage === '2') {    
         await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
 
-}catch(e){
-console.log(e)
-  reply('Error')
-}
+res.sendStatus(200);
 })
 
 //====================video_dl=======================
