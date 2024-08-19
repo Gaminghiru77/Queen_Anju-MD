@@ -49,3 +49,31 @@ reply(`${e}`)
 
 }
 })
+
+
+cmd({
+    pattern: "ping",
+    alias: ["pong"],
+    desc: "Check the bot's responsiveness and latency.",
+    category: "main",
+    filename: __filename
+},
+async (conn, mek, m, { reply }) => {
+    try {
+        const start = Date.now();
+        await reply("🏓 Pinging...");
+        const end = Date.now();
+        const latency = end - start;
+
+        const pingStatus = `
+🏓 PONG!
+
+⏱️ LATENCY: ${latency}ms
+        `;
+        return reply(pingStatus);
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
+    }
+});
+
