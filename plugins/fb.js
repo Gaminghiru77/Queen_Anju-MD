@@ -1,51 +1,53 @@
 const { cmd, commands } = require('../command');
-const fg = require('api-dylux'); // This assumes api-dylux supports Facebook video downloads
-const yts = require('yt-search');
+const fbDownloader = require('fb-dl-rdwn');
 
-// Facebook Video Downloader
+// Facebook Video Downloader Command
 cmd({
     pattern: "fb",
     desc: "To download Facebook videos.",
     category: "download",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, command, args, q, reply }) => {
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        if (!q) return reply("Please provide a Facebook video URL");
+        if (!q) return reply("Please provide a Facebook video URL.");
 
-        // Validate the URL format (Optional)
-        if (!q.includes("facebook.com")) return reply("Please provide a valid Facebook video URL");
+        const videoUrl = q.trim();
 
-        // Fetch video download link
-        let down = await fg.fb(q);
-        let downloadUrl = down.dl_url;
-        let title = down.title || "Facebook Video";
+        // Fetch video details
+        const videoData = await fbDownloader.getInfo(videoUrl);
+
+        if (!videoData) {
+            return reply("Failed to fetch video details. Please check the URL.");
+        }
+
+        const { title, thumbnail, hdUrl, sdUrl } = videoData;
 
         let desc = `
-⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘍𝘉 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
-        
-*ɪ ꜰᴏᴜɴᴅ ᴛʜɪꜱ ʀᴇꜱᴜʟᴛ...*
+⫷⦁[ * '-'_꩜ Facebook Video Downloader ꩜_'-' * ]⦁⫸
 
- ➥ ᴛɪᴛʟᴇ -  ${title}
+*Here are the details of the video:*
 
- ➥ ᴜʀʟ - : ${q}
+ ➥ *Title* - ${title}
+ ➥ *HD URL* - ${hdUrl ? hdUrl : "Not available"}
+ ➥ *SD URL* - ${sdUrl}
 
-
-> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
-> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+> *© Your WhatsApp Bot*
 `;
 
-        // Send video details
-        await conn.sendMessage(from, { text: desc }, { quoted: mek });
+        await conn.sendMessage(from, { image: { url: thumbnail }, caption: desc }, { quoted: mek });
 
-        // Send video message
-        await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4", caption: `*© Queen Anju WhatsApp Bot - MD*` }, { quoted: mek });
+        // Send video message (HD if available, otherwise SD)
+        let downloadUrl = hdUrl || sdUrl;
 
-        // Optionally, you can send it as a document
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "video/mp4", fileName: `${title}.mp4`, caption: "*© Queen Anju WhatsApp Bot - MD*" }, { quoted: mek });
+        if (downloadUrl) {
+            await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4", caption: `*© Your WhatsApp Bot*` }, { quoted: mek });
+        } else {
+            reply("Failed to download the video.");
+        }
 
     } catch (e) {
         console.log(e);
-        reply(`Error: ${e.message}`);
+        reply(`Error: ${e}`);
     }
 });
