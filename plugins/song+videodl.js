@@ -1,93 +1,106 @@
-const { cmd, commands } = require('../command');
-const fg = require('api-dylux');
-const yts = require('yt-search');
-
+const {cmd , commands} = require('../command')
+const fg = require('api-dylux')
+const yts = require('yt-search')
 cmd({
-    pattern: "media",
-    desc: "To download songs or videos.",
+    pattern: "song",
+    desc: "To download songs.",
     category: "download",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        if (!q) return reply("Please provide a URL or title");
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+if(!q) return reply("Please give me a url or title")  
+const search = await yts(q)
+const data = search.videos[0];
+const url = data.url
+    
+    
+let desc = `
+⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
+        
+*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
 
-        // Search for the media based on the query
-        const search = await yts(q);
-        const data = search.videos[0];
-        const url = data.url;
+ ➥ ᴛɪᴛʟᴇ -  ${data.title}
 
-        // Create the list message
-        const sections = [
-            {
-                title: "Select Media Type",
-                rows: [
-                    { title: "Download Song", rowId: `song_${url}` },
-                    { title: "Download Video", rowId: `video_${url}` }
-                ]
-            }
-        ];
+ ➥ ᴜʀʟ - : ${data.url}
 
-        const listMessage = {
-            text: "Please choose what you want to download:",
-            footer: "Powered by Queen Anju",
-            title: "Media Download Options",
-            buttonText: "Select Option",
-            sections: sections
-        };
+ ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
 
-        // Send the list message to the user
-        await conn.sendMessage(from, { listMessage }, { quoted: mek });
+ ➥ ᴠɪᴇᴡs - : ${data.views}
 
-    } catch (e) {
-        console.log(e);
-        reply(`${e}`);
-    }
-});
+ ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
 
-// Handle the list response
+
+> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+`
+
+await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
+
+//download audio
+
+let down = await fg.yta(url)
+let downloadUrl = down.dl_url
+
+//send audio message
+await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek})
+await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
+
+}catch(e){
+console.log(e)
+  reply('${e}')
+}
+})
+
+//====================video_dl=======================
+
 cmd({
-    pattern: "song_",
-    desc: "Download the selected song.",
+    pattern: "video",
+    desc: "To download videos.",
     category: "download",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        const url = command.replace('song_', '');
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+if(!q) return reply("Please give me a url or title")  
+const search = await yts(q)
+const data = search.videos[0];
+const url = data.url
+    
+    
+let desc = `
+⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
+        
+*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
 
-        let down = await fg.yta(url);
-        let downloadUrl = down.dl_url;
+ ➥ ᴛɪᴛʟᴇ -  ${data.title}
 
-        // Send audio message
-        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: down.title + ".mp3", caption: "*© Queen Anju WhatsApp Bot*" }, { quoted: mek });
+ ➥ ᴜʀʟ - : ${data.url}
 
-    } catch (e) {
-        console.log(e);
-        reply(`${e}`);
-    }
-});
+ ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
 
-cmd({
-    pattern: "video_",
-    desc: "Download the selected video.",
-    category: "download",
-    filename: __filename
-},
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        const url = command.replace('video_', '');
+ ➥ ᴠɪᴇᴡs - : ${data.views}
 
-        let down = await fg.ytv(url);
-        let downloadUrl = down.dl_url;
+ ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
 
-        // Send video message
-        await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4" }, { quoted: mek });
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "video/mp4", fileName: down.title + ".mp4", caption: "*© Queen Anju WhatsApp Bot*" }, { quoted: mek });
 
-    } catch (e) {
-        console.log(e);
-        reply(`${e}`);
-    }
-});
+> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+`
+
+await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
+
+//download video
+
+let down = await fg.ytv(url)
+let downloadUrl = down.dl_url
+
+//send video message
+await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quoted:mek})
+await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fileName:data.title + ".mp4",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
+
+}catch(e){
+console.log(e)
+  reply('${e}')
+}
+})
