@@ -3,8 +3,8 @@ const fg = require('api-dylux');
 const yts = require('yt-search');
 
 cmd({
-    pattern: "song",
-    desc: "To download a song.",
+    pattern: "media",
+    desc: "To download songs or videos.",
     category: "download",
     filename: __filename
 },
@@ -17,41 +17,21 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         const data = search.videos[0];
         const url = data.url;
 
-        let desc = `
-⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
-        
-*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
-
- ➥ ᴛɪᴛʟᴇ -  ${data.title}
-
- ➥ ᴜʀʟ - : ${data.url}
-
- ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
-
- ➥ ᴠɪᴇᴡs - : ${data.views}
-
- ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
-
-
-> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
-> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
-`
-
         // Create the list message
         const sections = [
             {
-                title: "Select Download Type",
+                title: "Select Media Type",
                 rows: [
-                    { title: "Download as Audio", rowId: `audio_${url}` },
-                    { title: "Download as Document", rowId: `document_${url}` }
+                    { title: "Download Song", rowId: `song_${url}` },
+                    { title: "Download Video", rowId: `video_${url}` }
                 ]
             }
         ];
 
         const listMessage = {
-            text:desc,
+            text: "Please choose what you want to download:",
             footer: "Powered by Queen Anju",
-            title: "Download Options",
+            title: "Media Download Options",
             buttonText: "Select Option",
             sections: sections
         };
@@ -65,22 +45,23 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
     }
 });
 
-// Handle the list response for audio
+// Handle the list response
 cmd({
-    pattern: "audio_",
-    desc: "Download the selected media as audio.",
+    pattern: "song_",
+    desc: "Download the selected song.",
     category: "download",
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        const url = command.replace('audio_', '');
+        const url = command.replace('song_', '');
 
         let down = await fg.yta(url);
         let downloadUrl = down.dl_url;
 
         // Send audio message
         await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: down.title + ".mp3", caption: "*© Queen Anju WhatsApp Bot*" }, { quoted: mek });
 
     } catch (e) {
         console.log(e);
@@ -88,22 +69,22 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
     }
 });
 
-// Handle the list response for document
 cmd({
-    pattern: "document_",
-    desc: "Download the selected media as a document.",
+    pattern: "video_",
+    desc: "Download the selected video.",
     category: "download",
     filename: __filename
 },
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        const url = command.replace('document_', '');
+        const url = command.replace('video_', '');
 
-        let down = await fg.yta(url);
+        let down = await fg.ytv(url);
         let downloadUrl = down.dl_url;
 
-        // Send document message
-        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: down.title + ".mp3", caption: "*© Queen Anju WhatsApp Bot*" }, { quoted: mek });
+        // Send video message
+        await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4" }, { quoted: mek });
+        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "video/mp4", fileName: down.title + ".mp4", caption: "*© Queen Anju WhatsApp Bot*" }, { quoted: mek });
 
     } catch (e) {
         console.log(e);
