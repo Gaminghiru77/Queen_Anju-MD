@@ -9,7 +9,7 @@ cmd({
     category: "download",
     filename: __filename
 },
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+async(sock, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
 if(!q) return reply("Please give me a url or title")  
 const search = await yts(q)
@@ -36,7 +36,7 @@ let desc = `
 > *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
 > *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
 `
-conn.ev.on('messages.upsert', async (m) => {
+sock.ev.on('messages.upsert', async (m) => {
   const msg = m.messages[0];
   if (!msg.key.fromMe && m.type === 'notify') {
       if (msg.message.conversation === 'menu') {
@@ -58,7 +58,7 @@ conn.ev.on('messages.upsert', async (m) => {
               sections: sections
           };
 
-          await conn.sendMessage(msg.key.remoteJid, { listMessage });
+          await sock.sendMessage(msg.key.remoteJid, { listMessage });
       }
   }
 });
@@ -68,14 +68,14 @@ conn.ev.on('messages.upsert', async (m) => {
 let down = await fg.yta(url)
 let downloadUrl = down.dl_url
 
-conn.ev.on('messages.upsert', async (m) => {
+sock.ev.on('messages.upsert', async (m) => {
   const msg = m.messages[0];
   if (msg.message.listResponseMessage) {
       const selectedRowId = msg.message.listResponseMessage.singleSelectReply.selectedRowId;
       if (selectedRowId === 'option1') {
-        await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek});  
+        await sock.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek});  
       } else if (selectedRowId === 'option2') {
-        await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
+        await sock.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
       }
       // Add additional cases for other options
   }
