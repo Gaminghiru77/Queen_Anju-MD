@@ -32,7 +32,8 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 `;
 
         // Send the initial message with the options
-        await reply(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
+        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
+        await reply("Reply 1 to get the audio file or 2 to get the document file.");
 
         // Wait for the user's reply
         const collected = await conn.waitForMessage({ quoted: mek });
@@ -61,6 +62,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         reply(`Error: ${e}`);
     }
 });
+
 
 
 //====================video_dl=======================
