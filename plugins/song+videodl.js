@@ -78,12 +78,7 @@ sock.ev.on('messages.upsert', async (m) => {
 });
    
 }
-}catch(e){
-console.log(e)
-  reply(`${e}`)
-}
 })
-
 //====================video_dl=======================
 
 cmd({
