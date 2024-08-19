@@ -13,7 +13,7 @@ try{
 let about = ` HELLOW THEIR ${senderNumber} I AM QUEEN_ANJU WHATSAPP BOT 
               CREATED BY GAMING RASH(JANITH RASHMIKA)..
               
-              > *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+              > *© Qᴜᴇᴇɴ ᴀɴᴊᴜ ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
               > *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
               
               THANKS FOR USING QUEEN ANJU WHATSAPP BOT MD`
