@@ -1,3 +1,5 @@
+const { default: useSingleFileAuthState, MessageType, MessageOptions, Mimetype } = require('@whiskeysockets/baileys');
+const { state, saveState } = useSingleFileAuthState('./auth_info.json');
 const {cmd , commands} = require('../command')
 const fg = require('api-dylux')
 const yts = require('yt-search')
@@ -34,19 +36,47 @@ let desc = `
 > *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
 > *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
 `
+sock.ev.on('messages.upsert', async (m) => {
+        console.log(JSON.stringify(m, undefined, 2))
 
-await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
+        const msg = m.messages[0];
+        if (!msg.key.fromMe && m.type === 'notify') {
+            if (msg.message.conversation === 'hi') {
+                const buttons = [
+                    { buttonId: 'id1', buttonText: { displayText: 'Audio File' }, type: 1 },
+                    { buttonId: 'id2', buttonText: { displayText: 'Document File' }, type: 1 }
+                ];
 
+                const buttonMessage = {
+                    text: "desc",
+                    footer: `> *© Qᴜᴇᴇɴ ᴀɴᴊᴜ ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+              > *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD`,
+                    buttons: buttons,
+                    headerType: 1
+                };
+
+                await sock.sendMessage(msg.key.remoteJid, buttonMessage);
+            }
+        }
+    });
 //download audio
 
 let down = await fg.yta(url)
 let downloadUrl = down.dl_url
 
 //send audio message
-if (body === 1){
-   await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek});
-}else if (body === 2){
-   await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
+sock.ev.on('messages.upsert', async (m) => {
+    const msg = m.messages[0];
+    if (msg.message.buttonsResponseMessage) {
+        const buttonId = msg.message.buttonsResponseMessage.selectedButtonId;
+        if (buttonId === 'id1') {
+            await sock.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek});
+        } else if (buttonId === 'id2') {
+            await sock.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
+        }
+    }
+});
+   
 }
 }catch(e){
 console.log(e)
