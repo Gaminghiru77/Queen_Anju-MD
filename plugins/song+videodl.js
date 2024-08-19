@@ -1,23 +1,23 @@
-const { default: useSingleFileAuthState } = require('@whiskeysockets/baileys')
-const { state, saveState } = useSingleFileAuthState('../auth_info.json')
-const {cmd , commands} = require('../command')
-const fg = require('api-dylux')
-const yts = require('yt-search')
+const { cmd, commands } = require('../command');
+const fg = require('api-dylux');
+const yts = require('yt-search');
+
 cmd({
     pattern: "song",
-    desc: "To download songs.",
+    desc: "To download a song.",
     category: "download",
     filename: __filename
 },
-async(sock, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("Please give me a url or title")  
-const search = await yts(q)
-const data = search.videos[0];
-const url = data.url
-    
-    
-let desc = `
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        if (!q) return reply("Please provide a URL or title");
+
+        // Search for the media based on the query
+        const search = await yts(q);
+        const data = search.videos[0];
+        const url = data.url;
+
+        let desc = `
 ⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
         
 *ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
@@ -36,110 +36,77 @@ let desc = `
 > *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
 > *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
 `
-sock.ev.on('messages.upsert', async (m) => {
-  const msg = m.messages[0];
-  if (!msg.key.fromMe && m.type === 'notify') {
-      if (msg.message.conversation === 'menu') {
-          const sections = [
-              {
-                  title: "Select one",
-                  rows: [
-                      { title: "Audio File", rowId: "option1" },
-                      { title: "Document File", rowId: "option2" },
-                  ]
-              }
-          ];
 
-          const listMessage = {
-              text:desc,
-              footer: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*",
-              title: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*",
-              buttonText: "Select Option",
-              sections: sections
-          };
+        // Create the list message
+        const sections = [
+            {
+                title: "Select Download Type",
+                rows: [
+                    { title: "Download as Audio", rowId: `audio_${url}` },
+                    { title: "Download as Document", rowId: `document_${url}` }
+                ]
+            }
+        ];
 
-          await sock.sendMessage(msg.key.remoteJid, { listMessage });
-      }
-  }
+        const listMessage = {
+            text:desc,
+            footer: "Powered by Queen Anju",
+            title: "Download Options",
+            buttonText: "Select Option",
+            sections: sections
+        };
+
+        // Send the list message to the user
+        await conn.sendMessage(from, { listMessage }, { quoted: mek });
+
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
+    }
 });
 
-//download audio
-
-let down = await fg.yta(url)
-let downloadUrl = down.dl_url
-
-sock.ev.on('messages.upsert', async (m) => {
-  const msg = m.messages[0];
-  if (msg.message.listResponseMessage) {
-      const selectedRowId = msg.message.listResponseMessage.singleSelectReply.selectedRowId;
-      if (selectedRowId === 'option1') {
-        await sock.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek});  
-      } else if (selectedRowId === 'option2') {
-        await sock.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek});
-      }
-      // Add additional cases for other options
-  }
-});
-
-//send audio message
-
-
-
-}catch(e){
-console.log(e)
-  reply('${e}')
-}
-})
-
-//====================video_dl=======================
-
+// Handle the list response for audio
 cmd({
-    pattern: "video",
-    desc: "To download videos.",
+    pattern: "audio_",
+    desc: "Download the selected media as audio.",
     category: "download",
     filename: __filename
 },
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("Please give me a url or title")  
-const search = await yts(q)
-const data = search.videos[0];
-const url = data.url
-    
-    
-let desc = `
-⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
-        
-*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        const url = command.replace('audio_', '');
 
- ➥ ᴛɪᴛʟᴇ -  ${data.title}
+        let down = await fg.yta(url);
+        let downloadUrl = down.dl_url;
 
- ➥ ᴜʀʟ - : ${data.url}
+        // Send audio message
+        await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
 
- ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
+    }
+});
 
- ➥ ᴠɪᴇᴡs - : ${data.views}
+// Handle the list response for document
+cmd({
+    pattern: "document_",
+    desc: "Download the selected media as a document.",
+    category: "download",
+    filename: __filename
+},
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+    try {
+        const url = command.replace('document_', '');
 
- ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
+        let down = await fg.yta(url);
+        let downloadUrl = down.dl_url;
 
+        // Send document message
+        await conn.sendMessage(from, { document: { url: downloadUrl }, mimetype: "audio/mpeg", fileName: down.title + ".mp3", caption: "*© Queen Anju WhatsApp Bot*" }, { quoted: mek });
 
-> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
-> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
-`
-
-await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
-
-//download video
-
-let down = await fg.ytv(url)
-let downloadUrl = down.dl_url
-
-//send video message
-await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quoted:mek})
-await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fileName:data.title + ".mp4",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
-
-}catch(e){
-console.log(e)
-  reply('${e}')
-}
-})
+    } catch (e) {
+        console.log(e);
+        reply(`${e}`);
+    }
+});
