@@ -1,9 +1,9 @@
 const { cmd, commands } = require('../command');
-const fbDownloader = require('fb-dl-rdwn');
+const fbDownloader = require('fb-downloader-new');
 
 // Facebook Video Downloader Command
 cmd({
-    pattern: "fb",
+    pattern: "fbvideo",
     desc: "To download Facebook videos.",
     category: "download",
     filename: __filename
@@ -15,22 +15,22 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         const videoUrl = q.trim();
 
         // Fetch video details
-        const videoData = await fbDownloader.getInfo(videoUrl);
+        const videoData = await fbDownloader(videoUrl);
 
-        if (!videoData) {
-            return reply("Failed to fetch video details. Please check the URL.");
+        if (!videoData || (!videoData.sd && !videoData.hd)) {
+            return reply("Failed to fetch video details or the video may be private.");
         }
 
-        const { title, thumbnail, hdUrl, sdUrl } = videoData;
+        const { title, thumbnail, hd, sd } = videoData;
 
         let desc = `
 ⫷⦁[ * '-'_꩜ Facebook Video Downloader ꩜_'-' * ]⦁⫸
 
 *Here are the details of the video:*
 
- ➥ *Title* - ${title}
- ➥ *HD URL* - ${hdUrl ? hdUrl : "Not available"}
- ➥ *SD URL* - ${sdUrl}
+ ➥ *Title* - ${title || "Unknown"}
+ ➥ *HD URL* - ${hd || "Not available"}
+ ➥ *SD URL* - ${sd}
 
 > *© Your WhatsApp Bot*
 `;
@@ -38,7 +38,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         await conn.sendMessage(from, { image: { url: thumbnail }, caption: desc }, { quoted: mek });
 
         // Send video message (HD if available, otherwise SD)
-        let downloadUrl = hdUrl || sdUrl;
+        let downloadUrl = hd || sd;
 
         if (downloadUrl) {
             await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4", caption: `*© Your WhatsApp Bot*` }, { quoted: mek });
