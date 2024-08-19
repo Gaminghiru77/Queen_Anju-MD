@@ -10,7 +10,7 @@ cmd({
 async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
 
-let about = ` HELLOW THEIR &mention I AM QUEEN_ANJU WHATSAPP BOT 
+let about = ` HELLOW THEIR ${sender} I AM QUEEN_ANJU WHATSAPP BOT 
               CREATED BY GAMING RASH(JANITH RASHMIKA)..
               
               > *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
