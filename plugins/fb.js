@@ -3,7 +3,7 @@ const fbDownloader = require('fb-downloader-new');
 
 // Facebook Video Downloader Command
 cmd({
-    pattern: "fbvideo",
+    pattern: "fb",
     desc: "To download Facebook videos.",
     category: "download",
     filename: __filename
@@ -29,16 +29,15 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 *Here are the details of the video:*
 
  ➥ *Title* - ${title || "Unknown"}
- ➥ *HD URL* - ${hd || "Not available"}
- ➥ *SD URL* - ${sd}
+ ➥ 
 
 > *© Your WhatsApp Bot*
 `;
 
         await conn.sendMessage(from, { image: { url: thumbnail }, caption: desc }, { quoted: mek });
 
-        // Send video message (HD if available, otherwise SD)
-        let downloadUrl = hd || sd;
+        // Send video message (SD)
+        let downloadUrl = sd;
 
         if (downloadUrl) {
             await conn.sendMessage(from, { video: { url: downloadUrl }, mimetype: "video/mp4", caption: `*© Your WhatsApp Bot*` }, { quoted: mek });
