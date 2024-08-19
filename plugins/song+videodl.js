@@ -1,3 +1,4 @@
+const { WAConnection, MessageType, Presence, Mimetype, Reactions } = require('@whiskeysockets/baileys');
 const {cmd , commands} = require('../command')
 const fg = require('api-dylux')
 const yts = require('yt-search')
@@ -33,7 +34,7 @@ let desc = `
 > *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
 *💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD
 `
-
+await conn.sendMessage(from, { reaction: { key: mek.key, reaction: '🎵' } }, { quoted: mek });
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
 
 //download audio
