@@ -16,23 +16,22 @@ const url = data.url
     
     
 let desc = `
-⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
-        
-*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
+⫷⦁[ * '-'_꩜ 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙎𝙊𝙉𝙂 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 ꩜_'-' * ]⦁⫸
 
- ➥ ᴛɪᴛʟᴇ -  ${data.title}
+🎵 *Song Found!* 
 
- ➥ ᴜʀʟ - : ${data.url}
+➥ *Title:* ${data.title} 
+➥ *Duration:* ${data.timestamp} 
+➥ *Views:* ${data.views} 
+➥ *Uploaded On:* ${data.ago} 
+➥ *Link:* ${data.url} 
 
- ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
+🎧 *Enjoy the music brought to you by* *Queen Anju Bot*! 
 
- ➥ ᴠɪᴇᴡs - : ${data.views}
+> *Created with ❤️ by Janith Rashmika* 
 
- ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
-
-
-> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
-> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+> *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
+*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD  
 `
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
@@ -69,23 +68,22 @@ const url = data.url
     
     
 let desc = `
-⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
-        
-*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
+⫷⦁[ * '-'_꩜ 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙑𝙄𝘿𝙀𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 ꩜_'-' * ]⦁⫸ 
 
- ➥ ᴛɪᴛʟᴇ -  ${data.title}
+🎥 *Video Found!* 
 
- ➥ ᴜʀʟ - : ${data.url}
+➥ *Title:* ${data.title} 
+➥ *Duration:* ${data.timestamp} 
+➥ *Views:* ${data.views} 
+➥ *Uploaded On:* ${data.ago} 
+➥ *Link:* ${data.url} 
 
- ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
+🎬 *Enjoy the video brought to you by* *Queen Anju Bot*! 
 
- ➥ ᴠɪᴇᴡs - : ${data.views}
+> *Created with ❤️ by Janith Rashmika* 
 
- ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
-
-
-> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
-> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+> *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
+*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD
 `
 
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
