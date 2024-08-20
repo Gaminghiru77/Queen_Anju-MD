@@ -1,5 +1,7 @@
 const config = require('../config')
 const {cmd , commands} = require('../command')
+const os = require("os")
+const {runtime} = require('../lib/functions')
 
 cmd({
     pattern: "alive",
@@ -15,7 +17,8 @@ let aliveMessage = `
 
 *Hey there!* 
 
- > 🟢 *Queen Anju WhatsApp Bot* is up and running! 
+ > 🟢 *Queen Anju WhatsApp Bot* is up and running!
+           Runtime : ${runtime(process.uptime())}
  > 🛠️ *Created by:* Janith Rashmika 
  
 *Here's what I can do:* 
