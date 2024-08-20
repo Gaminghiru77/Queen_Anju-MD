@@ -51,7 +51,7 @@ reply(`${e}`)
 })
 
 
-Function({
+cmd({
 	pattern: "ping ?(.*)",
 	desc: "Bot response in second.",
 	category: "info"
