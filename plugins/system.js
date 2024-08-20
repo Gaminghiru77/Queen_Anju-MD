@@ -53,7 +53,6 @@ reply(`${e}`)
 
 Function({
 	pattern: "ping ?(.*)",
-	fromMe: isPublic,
 	desc: "Bot response in second.",
 	category: "info"
 }, 
