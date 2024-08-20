@@ -1,7 +1,7 @@
 const { WAConnection, MessageType, Presence, Mimetype, Reactions } = require('@whiskeysockets/baileys');
 const {cmd , commands} = require('../command')
 const fg = require('api-dylux')
-const yts = require('yt-search')
+const fbDownloader = require('fb-downloader-new')
 cmd({
     pattern: "fb",
     desc: "To download Facebook videos.",
