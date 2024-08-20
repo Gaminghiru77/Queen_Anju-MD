@@ -1,7 +1,7 @@
 const config = require('../config')
 const {cmd , commands} = require('../command')
 const os = require("os")
-const {runtime} = require('../lib/functions')
+const {Function,runtime} = require('../lib/functions')
 cmd({
     pattern: "system",
     alias: ["status","botinfo"],
@@ -51,30 +51,22 @@ reply(`${e}`)
 })
 
 
-cmd({
-    pattern: "ping",
-    alias: ["pong"],
-    desc: "Check the bot's responsiveness and latency.",
-    category: "main",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-        const start = Date.now()
-        await reply("🏓 Pinging...")
-        const end = Date.now()
-        const latency = end - start
-
-        const pingStatus = `
-🏓 PONG!
-
-⏱️ LATENCY: ${latency}ms
-        `;
-    await sleep(1500)
-        return reply(pingStatus)
-    } catch (e) {
-        console.log(e);
-        reply(`${e}`);
-    }
+Function({
+	pattern: "ping ?(.*)",
+	fromMe: isPublic,
+	desc: "Bot response in second.",
+	category: "info"
+}, 
+async (message, match, client) => {
+	
+    var start = new Date().getTime();
+	var msg = await message.reply('🏓 Pinging...');
+	var end = new Date().getTime();
+	var responseTime = end - start;
+	await msg.edit(`
+ 🏓 PONG! 
+ 
+ ⏱️ LATENCY: ${responseTime}ms
+ `);
 });
 
