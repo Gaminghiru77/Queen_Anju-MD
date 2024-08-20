@@ -63,7 +63,7 @@ try {
         const startTime = Date.now();
 
         // Send a temporary message to measure response time
-        await conn.sendMessage(from, 'Pinging...', { quoted: mek });
+        await conn.sendMessage('Pinging...');
 
         // Record the end time
         const endTime = Date.now();
@@ -72,7 +72,7 @@ try {
         const responseTime = endTime - startTime;
 
         // Send the response time
-        await conn.sendMessage(from, `Pong! Response time: ${responseTime} ms`, { quoted: mek });
+        await conn.sendMessage(`Pong! Response time: ${responseTime} ms`);
     } catch (e) {
         console.log(e);
         reply(`Error: ${e}`);
