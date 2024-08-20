@@ -58,19 +58,20 @@ cmd({
     category: "main",
     filename: __filename
 },
-async (conn, mek, m, { reply }) => {
-    try {
-        const start = Date.now();
-        await reply("🏓 Pinging...");
-        const end = Date.now();
-        const latency = end - start;
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+        const start = Date.now()
+        await reply("🏓 Pinging...")
+        const end = Date.now()
+        const latency = end - start
 
         const pingStatus = `
 🏓 PONG!
 
 ⏱️ LATENCY: ${latency}ms
         `;
-        return reply(pingStatus);
+    await sleep(1500)
+        return reply(pingStatus)
     } catch (e) {
         console.log(e);
         reply(`${e}`);
