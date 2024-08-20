@@ -1,4 +1,4 @@
-const { WAConnection, MessageType, Presence, Mimetype, Reactions } = require('@whiskeysockets/baileys');
+const { WAConnection, MessageType, Mimetype } = require('@whiskeysockets/baileys');
 const { cmd, commands } = require('../command');
 const fg = require('api-dylux');
 const yts = require('yt-search');
@@ -35,7 +35,7 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
 *💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD
 `;
 
-        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc, reaction: '🎵' }, { quoted: mek });
+        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
         // Send a list message to select download format
         const sections = [
@@ -56,34 +56,39 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
             sections
         };
 
+        // Send list message
         await conn.sendMessage(from, listMessage, { quoted: mek });
 
-        // Wait for the user's reply
-        const collected = await conn.waitForMessage({ quoted: mek });
+        // Listen for the user's reply (event-based handling)
+        conn.on('message-new', async (msg) => {
+            if (msg.message?.listResponseMessage?.singleSelectReply?.selectedRowId) {
+                const selected = msg.message.listResponseMessage.singleSelectReply.selectedRowId;
 
-        // Download audio
-        let down = await fg.yta(url);
-        let downloadUrl = down.dl_url;
+                // Download audio
+                let down = await fg.yta(url);
+                let downloadUrl = down.dl_url;
 
-        // Check user's reply and send the appropriate message
-        if (collected.message?.listResponseMessage?.singleSelectReply?.selectedRowId === 'audio') {
-            await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        } else if (collected.message?.listResponseMessage?.singleSelectReply?.selectedRowId === 'document') {
-            await conn.sendMessage(from, {
-                document: { url: downloadUrl },
-                mimetype: "audio/mpeg",
-                fileName: data.title + ".mp3",
-                caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
-            }, { quoted: mek });
-        } else {
-            reply("Invalid option. Please select either Audio or Document.");
-        }
+                if (selected === 'audio') {
+                    await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+                } else if (selected === 'document') {
+                    await conn.sendMessage(from, {
+                        document: { url: downloadUrl },
+                        mimetype: "audio/mpeg",
+                        fileName: data.title + ".mp3",
+                        caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
+                    }, { quoted: mek });
+                } else {
+                    reply("Invalid option. Please select either Audio or Document.");
+                }
+            }
+        });
 
     } catch (e) {
         console.log(e);
         reply(`Error: ${e}`);
     }
 });
+
 
 
 //====================video_dl=======================
