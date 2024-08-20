@@ -50,22 +50,33 @@ reply(`${e}`)
 }
 })
 
+const { MessageType } = require('@whiskeysockets/baileys');
 
 cmd({
-	pattern: "ping ?(.*)",
-	desc: "Bot response in second.",
-	category: "info"
+    pattern: 'ping',
+    desc: 'Replies with Pong! and the response time.',
+    category: 'general',
+    filename: __filename
 }, 
-async (message, match, client) => {
-	
-    var start = new Date().getTime();
-	var msg = await message.reply('🏓 Pinging...');
-	var end = new Date().getTime();
-	var responseTime = end - start;
-	await msg.edit(`
- 🏓 PONG! 
- 
- ⏱️ LATENCY: ${responseTime}ms
- `);
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+try {
+        // Record the start time
+        const startTime = Date.now();
+
+        // Send a temporary message to measure response time
+        await conn.sendMessage(from, 'Pinging...', MessageType.text, { quoted: mek });
+
+        // Record the end time
+        const endTime = Date.now();
+        
+        // Calculate the response time
+        const responseTime = endTime - startTime;
+
+        // Send the response time
+        await conn.sendMessage(from, `Pong! Response time: ${responseTime} ms`, MessageType.text, { quoted: mek });
+    } catch (e) {
+        console.log(e);
+        reply(`Error: ${e}`);
+    }
 });
 
