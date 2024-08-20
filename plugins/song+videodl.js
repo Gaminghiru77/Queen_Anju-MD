@@ -1,90 +1,106 @@
-const { WAConnection, MessageType, Mimetype } = require('@whiskeysockets/baileys');
-const { cmd, commands } = require('../command');
-const fg = require('api-dylux');
-const yts = require('yt-search');
-
+const {cmd , commands} = require('../command')
+const fg = require('api-dylux')
+const yts = require('yt-search')
 cmd({
     pattern: "song",
     desc: "To download songs.",
     category: "download",
     filename: __filename
 },
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-    try {
-        if (!q) return reply("Please give me a URL or title.");
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+if(!q) return reply("Please give me a url or title")  
+const search = await yts(q)
+const data = search.videos[0];
+const url = data.url
+    
+    
+let desc = `
+⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘚𝘖𝘕𝘎 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
         
-        // Perform YouTube search
-        const search = await yts(q);
-        const data = search.videos[0];
-        const url = data.url;
+*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
 
-        // Construct the message description
-        let desc = `
-⫷⦁[ * '-'_꩜ 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙎𝙊𝙉𝙂 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 ꩜_'-' * ]⦁⫸
+ ➥ ᴛɪᴛʟᴇ -  ${data.title}
 
-🎵 *Song Found!* 
+ ➥ ᴜʀʟ - : ${data.url}
 
-➥ *Title:* ${data.title} 
-➥ *Duration:* ${data.timestamp} 
-➥ *Views:* ${data.views} 
-➥ *Uploaded On:* ${data.ago} 
-➥ *Link:* ${data.url} 
+ ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
 
-🎧 *Enjoy the music brought to you by* *Queen Anju Bot*! 
+ ➥ ᴠɪᴇᴡs - : ${data.views}
 
-> *Created with ❤️ by Janith Rashmika* 
+ ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
 
-> *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
-*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD
-`;
 
-        // Send the song information
-        await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
+> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+`
 
-        // Create buttons for audio and document download
-        const buttons = [
-            { buttonId: 'audio', buttonText: { displayText: '🎧 Audio File' }, type: 1 },
-            { buttonId: 'document', buttonText: { displayText: '📄 Document File' }, type: 1 }
-        ];
+await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
 
-        const buttonMessage = {
-            contentText: 'Please select how you would like to download the song:',
-            footerText: 'Queen Anju Bot',
-            buttons: buttons,
-            headerType: 1
-        };
+//download audio
 
-        // Send the button message
-        await conn.sendMessage(from, buttonMessage, MessageType.buttonsMessage);
+let down = await fg.yta(url)
+let downloadUrl = down.dl_url
 
-        // Handle the user's selection
-        const collected = await conn.waitForMessage({ quoted: mek });
+//send audio message
+await conn.sendMessage(from,{audio: {url:downloadUrl},mimetype:"audio/mpeg"},{quoted:mek})
+await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"audio/mpeg",fileName:data.title + ".mp3",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
 
-        const selectedButtonId = collected.message?.buttonsResponseMessage?.selectedButtonId;
+}catch(e){
+console.log(e)
+  reply('${e}')
+}
+})
 
-        if (!selectedButtonId) {
-            return reply("No option selected. Please try again.");
-        }
+//====================video_dl=======================
 
-        // Download audio
-        let down = await fg.yta(url);
-        let downloadUrl = down.dl_url;
+cmd({
+    pattern: "video",
+    desc: "To download videos.",
+    category: "download",
+    filename: __filename
+},
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+if(!q) return reply("Please give me a url or title")  
+const search = await yts(q)
+const data = search.videos[0];
+const url = data.url
+    
+    
+let desc = `
+⫷⦁[ * '-'_꩜ 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 𝘠𝘛 𝘝𝘐𝘋𝘌𝘖 𝘋𝘖𝘞𝘕𝘓𝘖𝘈𝘋𝘌𝘙 ꩜_'-' * ]⦁⫸
+        
+*ɪ ꜰᴏᴜɴ ᴛʜɪꜱ ʀᴇsᴜʟᴛ...*
 
-        if (selectedButtonId === 'audio') {
-            await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        } else if (selectedButtonId === 'document') {
-            await conn.sendMessage(from, {
-                document: { url: downloadUrl },
-                mimetype: "audio/mpeg",
-                fileName: data.title + ".mp3",
-                caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
-            }, { quoted: mek });
-        } else {
-            reply("Invalid option selected.");
-        }
+ ➥ ᴛɪᴛʟᴇ -  ${data.title}
 
-    } catch (e) {
-        console.log(e);
-        reply(`Error: ${e}`);
-    }
-});
+ ➥ ᴜʀʟ - : ${data.url}
+
+ ➥ ᴅᴜʀᴀᴛɪᴏɴ - : ${data.timestamp}
+
+ ➥ ᴠɪᴇᴡs - : ${data.views}
+
+ ➥ ᴜᴘʟᴏᴀᴅ ᴏɴ - ${data.ago}
+
+
+> *© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*
+> *ɢɪᴛʜᴜʙ :* github.com/Mrrashmika/Queen_Anju-MD
+`
+
+await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
+
+//download video
+
+let down = await fg.ytv(url)
+let downloadUrl = down.dl_url
+
+//send video message
+await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quoted:mek})
+await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fileName:data.title + ".mp4",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
+
+}catch(e){
+console.log(e)
+  reply('${e}')
+}
+})
