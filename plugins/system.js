@@ -1,7 +1,7 @@
 const config = require('../config')
 const {cmd , commands} = require('../command')
 const os = require("os")
-const {Function,runtime} = require('../lib/functions')
+const {runtime} = require('../lib/functions')
 cmd({
     pattern: "system",
     alias: ["status","botinfo"],
@@ -49,33 +49,4 @@ reply(`${e}`)
 
 }
 })
-
-
-cmd({
-    pattern: 'ping',
-    desc: 'Replies with Pong! and the response time.',
-    category: 'general',
-    filename: __filename
-}, 
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
-try {
-        // Record the start time
-        const startTime = Date.now();
-
-        // Send a temporary message to measure response time
-        await conn.sendMessage('Pinging...');
-
-        // Record the end time
-        const endTime = Date.now();
-        
-        // Calculate the response time
-        const responseTime = endTime - startTime;
-
-        // Send the response time
-        await conn.sendMessage(`Pong! Response time: ${responseTime} ms`);
-    } catch (e) {
-        console.log(e);
-        reply(`Error: ${e}`);
-    }
-});
 
