@@ -59,27 +59,27 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
         // Send list message
         await conn.sendMessage(from, listMessage, { quoted: mek });
 
-        // Listen for the user's reply (event-based handling)
-        conn.on('message-new', async (msg) => {
-            if (msg.message?.listResponseMessage?.singleSelectReply?.selectedRowId) {
-                const selected = msg.message.listResponseMessage.singleSelectReply.selectedRowId;
+        // Wait for user's selection and handle response
+        conn.once('message-new', async (selectedMessage) => {
+            const selectedRowId = selectedMessage.message?.listResponseMessage?.singleSelectReply?.selectedRowId;
 
-                // Download audio
-                let down = await fg.yta(url);
-                let downloadUrl = down.dl_url;
+            if (!selectedRowId) return reply("No option selected. Please try again.");
 
-                if (selected === 'audio') {
-                    await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-                } else if (selected === 'document') {
-                    await conn.sendMessage(from, {
-                        document: { url: downloadUrl },
-                        mimetype: "audio/mpeg",
-                        fileName: data.title + ".mp3",
-                        caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
-                    }, { quoted: mek });
-                } else {
-                    reply("Invalid option. Please select either Audio or Document.");
-                }
+            // Download audio
+            let down = await fg.yta(url);
+            let downloadUrl = down.dl_url;
+
+            if (selectedRowId === 'audio') {
+                await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+            } else if (selectedRowId === 'document') {
+                await conn.sendMessage(from, {
+                    document: { url: downloadUrl },
+                    mimetype: "audio/mpeg",
+                    fileName: data.title + ".mp3",
+                    caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
+                }, { quoted: mek });
+            } else {
+                reply("Invalid option selected.");
             }
         });
 
@@ -88,6 +88,7 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
         reply(`Error: ${e}`);
     }
 });
+
 
 
 
