@@ -9,13 +9,16 @@ cmd({
     category: "download",
     filename: __filename
 },
-async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
         if (!q) return reply("Please give me a URL or title.");
+        
+        // Perform YouTube search
         const search = await yts(q);
         const data = search.videos[0];
         const url = data.url;
 
+        // Construct the message description
         let desc = `
 ⫷⦁[ * '-'_꩜ 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙎𝙊𝙉𝙂 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 ꩜_'-' * ]⦁⫸
 
@@ -35,9 +38,10 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
 *💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD
 `;
 
+        // Send the song information
         await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
-        // Send a list message to select download format
+        // Create a list message to select the download format
         const sections = [
             {
                 title: "Download Options",
@@ -53,41 +57,44 @@ async(conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, send
             footer: 'Queen Anju Bot',
             title: 'Song Download Options',
             buttonText: 'Select Download Format',
-            sections
+            sections: sections
         };
 
-        // Send list message
-        await conn.sendMessage(from, listMessage, { quoted: mek });
+        // Send the list message
+        await conn.sendMessage(from, listMessage, MessageType.listMessage);
 
-        // Wait for user's selection and handle response
-        conn.once('message-new', async (selectedMessage) => {
-            const selectedRowId = selectedMessage.message?.listResponseMessage?.singleSelectReply?.selectedRowId;
+        // Handle the user's selection (this part might depend on how Baileys handles responses)
+        const collected = await conn.waitForMessage({ quoted: mek });
 
-            if (!selectedRowId) return reply("No option selected. Please try again.");
+        const selectedRowId = collected.message?.listResponseMessage?.singleSelectReply?.selectedRowId;
 
-            // Download audio
-            let down = await fg.yta(url);
-            let downloadUrl = down.dl_url;
+        if (!selectedRowId) {
+            return reply("No option selected. Please try again.");
+        }
 
-            if (selectedRowId === 'audio') {
-                await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-            } else if (selectedRowId === 'document') {
-                await conn.sendMessage(from, {
-                    document: { url: downloadUrl },
-                    mimetype: "audio/mpeg",
-                    fileName: data.title + ".mp3",
-                    caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
-                }, { quoted: mek });
-            } else {
-                reply("Invalid option selected.");
-            }
-        });
+        // Download audio
+        let down = await fg.yta(url);
+        let downloadUrl = down.dl_url;
+
+        if (selectedRowId === 'audio') {
+            await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
+        } else if (selectedRowId === 'document') {
+            await conn.sendMessage(from, {
+                document: { url: downloadUrl },
+                mimetype: "audio/mpeg",
+                fileName: data.title + ".mp3",
+                caption: "*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"
+            }, { quoted: mek });
+        } else {
+            reply("Invalid option selected.");
+        }
 
     } catch (e) {
         console.log(e);
         reply(`Error: ${e}`);
     }
 });
+
 
 
 
