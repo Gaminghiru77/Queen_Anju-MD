@@ -41,34 +41,28 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         // Send the song information
         await conn.sendMessage(from, { image: { url: data.thumbnail }, caption: desc }, { quoted: mek });
 
-        // Create a list message to select the download format
-        const sections = [
-            {
-                title: "Download Options",
-                rows: [
-                    { title: "🎧 Audio File", rowId: "audio" },
-                    { title: "📄 Document File", rowId: "document" }
-                ]
-            }
+        // Create buttons for audio and document download
+        const buttons = [
+            { buttonId: 'audio', buttonText: { displayText: '🎧 Audio File' }, type: 1 },
+            { buttonId: 'document', buttonText: { displayText: '📄 Document File' }, type: 1 }
         ];
 
-        const listMessage = {
-            text: 'Please select how you would like to download the song:',
-            footer: 'Queen Anju Bot',
-            title: 'Song Download Options',
-            buttonText: 'Select Download Format',
-            sections: sections
+        const buttonMessage = {
+            contentText: 'Please select how you would like to download the song:',
+            footerText: 'Queen Anju Bot',
+            buttons: buttons,
+            headerType: 1
         };
 
-        // Send the list message
-        await conn.sendMessage(from, listMessage, MessageType.listMessage);
+        // Send the button message
+        await conn.sendMessage(from, buttonMessage, MessageType.buttonsMessage);
 
-        // Handle the user's selection (this part might depend on how Baileys handles responses)
+        // Handle the user's selection
         const collected = await conn.waitForMessage({ quoted: mek });
 
-        const selectedRowId = collected.message?.listResponseMessage?.singleSelectReply?.selectedRowId;
+        const selectedButtonId = collected.message?.buttonsResponseMessage?.selectedButtonId;
 
-        if (!selectedRowId) {
+        if (!selectedButtonId) {
             return reply("No option selected. Please try again.");
         }
 
@@ -76,9 +70,9 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         let down = await fg.yta(url);
         let downloadUrl = down.dl_url;
 
-        if (selectedRowId === 'audio') {
+        if (selectedButtonId === 'audio') {
             await conn.sendMessage(from, { audio: { url: downloadUrl }, mimetype: "audio/mpeg" }, { quoted: mek });
-        } else if (selectedRowId === 'document') {
+        } else if (selectedButtonId === 'document') {
             await conn.sendMessage(from, {
                 document: { url: downloadUrl },
                 mimetype: "audio/mpeg",
@@ -94,59 +88,3 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         reply(`Error: ${e}`);
     }
 });
-
-
-
-
-
-//====================video_dl=======================
-
-cmd({
-    pattern: "video",
-    desc: "To download videos.",
-    category: "download",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("Please give me a url or title")  
-const search = await yts(q)
-const data = search.videos[0];
-const url = data.url
-    
-    
-let desc = `
-⫷⦁[ * '-'_꩜ 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝙑𝙄𝘿𝙀𝙊 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍 ꩜_'-' * ]⦁⫸ 
-
-🎬 *Video Found!* 
-
-➥ *Title:* ${data.title} 
-➥ *Duration:* ${data.timestamp} 
-➥ *Views:* ${data.views} 
-➥ *Uploaded On:* ${data.ago} 
-➥ *Link:* ${data.url} 
-
-📹 *Enjoy your video with* *Queen Anju Bot*! 
-
-> *Created with passion by Janith Rashmika* 
-
-> *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
-*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD
-`
-
-await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
-
-//download video
-
-let down = await fg.ytv(url)
-let downloadUrl = down.dl_url
-
-//send video message
-await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quoted:mek})
-await conn.sendMessage(from,{document: {url:downloadUrl},mimetype:"video/mp4",fileName:data.title + ".mp4",caption:"*© 𝘘𝘜𝘌𝘌𝘕 𝘈𝘕𝘑𝘜 ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ*"},{quoted:mek})
-
-}catch(e){
-console.log(e)
-  reply('${e}')
-}
-})
