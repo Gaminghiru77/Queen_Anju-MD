@@ -4,6 +4,7 @@ const yts = require('yt-search')
 cmd({
     pattern: "song",
     desc: "To download songs.",
+    react: "🎵",
     category: "download",
     filename: __filename
 },
@@ -56,6 +57,7 @@ console.log(e)
 cmd({
     pattern: "video",
     desc: "To download videos.",
+    react: "🎥",
     category: "download",
     filename: __filename
 },
