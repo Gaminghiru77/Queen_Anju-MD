@@ -6,6 +6,7 @@ const {runtime} = require('../lib/functions')
 cmd({
     pattern: "alive",
     desc: "To Check the bot online or no.",
+    react: "🟢",
     category: "main",
     filename: __filename
 },
