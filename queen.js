@@ -69,24 +69,16 @@ require("./plugins/" + plugin);
 console.log('Plugins installed successful ✅')
 console.log('Queen_Anju connected to whatsapp ✅')
 
-
-
 let up = `
-🚀 **Queen_Anju MD Connected Successfully!** ✅ 
+Queen_Anju connected successful ✅
 
---- **🎉 Welcome to Queen_Anju MD!** 🎉 
+Thanks for using Queen_Anju MD..
 
-**🔹 PREFIX:** ${prefix}
+PREFIX: ${prefix}
 
-**🔹 OWNER:**  ${ownerNumber}
+OWNER: ${ownerNumber}`;
 
---- Thank you for using **Queen_Anju MD**. 
-We're here to make your experience enjoyable and seamless. 
-If you need any help or have questions, don't hesitate to ask. 
-
-**Enjoy your time with us!** 😊 `;
-
-conn.sendMessage(config.BOT_NUMBER + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/adc46970456c26cad0c15.jpg` }, caption: up })
+conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/adc46970456c26cad0c15.jpg` }, caption: up })
 
 }
 })
@@ -96,9 +88,7 @@ conn.ev.on('messages.upsert', async(mek) => {
 mek = mek.messages[0]
 if (!mek.message) return	
 mek.message = (getContentType(mek.message) === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-if (mek.key && mek.key.remoteJid === 'status@broadcast' && config.AUTO_READ_STATUS === "true"){
-await conn.readMessages([mek.key])
-}
+if (mek.key && mek.key.remoteJid === 'status@broadcast') return
 const m = sms(conn, mek)
 const type = getContentType(mek.message)
 const content = JSON.stringify(mek.message)
@@ -123,7 +113,6 @@ const participants = isGroup ? await groupMetadata.participants : ''
 const groupAdmins = isGroup ? await getGroupAdmins(participants) : ''
 const isBotAdmins = isGroup ? groupAdmins.includes(botNumber2) : false
 const isAdmins = isGroup ? groupAdmins.includes(sender) : false
-const isReact = m.message.reactionMessage ? true : false
 const reply = (teks) => {
 conn.sendMessage(from, { text: teks }, { quoted: mek })
 }
@@ -150,15 +139,6 @@ conn.sendFileUrl = async (jid, url, caption, quoted, options = {}) => {
               }
             }
 
-if(senderNumber.includes(config.BOT_NUMBER)){
-if(isReact) return
-m.react(config.OWNER_REACT)
-}
-//============================================================================ 
-if(!isOwner && config.MODE === "private") return
-if(!isOwner && isGroup && config.MODE === "inbox") return
-if(!isOwner && !isGroup && config.MODE === "groups") return
-//============================================================================
 
 const events = require('./command')
 const cmdName = isCmd ? body.slice(1).trim().split(" ")[0].toLowerCase() : false;
@@ -190,6 +170,7 @@ mek.type === "stickerMessage"
 ) {
 command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply})
 }});
+//============================================================================ 
 
 })
 }
