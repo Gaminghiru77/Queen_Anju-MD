@@ -27,4 +27,5 @@ ALIVE_MSG: process.env.ALIVE_MSG || "HELLOW THEIR, QUEEN ANJU IS ALIVE...\n\nOWN
 AUTO_READ_STATUS: process.env.AUTO_READ_STATUS || "true",
 MODE: process.env.MODE || "public",
 BOT_NUMBER: process.env.BOT_NUMBER || "94717775628",
+OWNER_REACT: process.env.OWNER_REACT || "🔆",
 };
