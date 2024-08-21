@@ -5,6 +5,7 @@ const {sleep} = require('../lib/functions')
 cmd({
     pattern: "restart",
     desc: "To restart the bot",
+    react: "💢",
     category: "owner",
     filename: __filename
 },
