@@ -70,15 +70,21 @@ console.log('Plugins installed successful ✅')
 console.log('Queen_Anju connected to whatsapp ✅')
 
 let up = `
-Queen_Anju connected successful ✅
+🚀 **Queen_Anju MD Connected Successfully!** ✅ 
 
-Thanks for using Queen_Anju MD..
+--- **🎉 Welcome to Queen_Anju MD!** 🎉 
 
-PREFIX: ${prefix}
+**🔹 PREFIX:** ${prefix}
 
-OWNER: ${ownerNumber}`;
+**🔹 OWNER:**  ${ownerNumber}
 
-conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/adc46970456c26cad0c15.jpg` }, caption: up })
+--- Thank you for using **Queen_Anju MD**. 
+We're here to make your experience enjoyable and seamless. 
+If you need any help or have questions, don't hesitate to ask. 
+
+**Enjoy your time with us!** 😊 `;
+
+conn.sendMessage(config.BOT_NUMBER + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/adc46970456c26cad0c15.jpg` }, caption: up })
 
 }
 })
