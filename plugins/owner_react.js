@@ -1,5 +1,5 @@
 const { cmd } = require('../command')
-const config = require('./config')
+const config = require('../config')
 const isReact = m.message.reactionMessage ? true : false
 
 if(senderNumber.includes(config.BOT_NUMBER)){
