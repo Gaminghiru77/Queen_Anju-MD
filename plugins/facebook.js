@@ -16,17 +16,10 @@ async (conn, mek, m, {
 }) => {
     try {
         if (!q) return reply('Please provide a valid Facebook video URL.');
-
         reply('Fetching video, please wait...');
-
-        // Launch Puppeteer browser
         const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
-
-        // Go to the Facebook video URL
         await page.goto(q, { waitUntil: 'networkidle2' });
-
-        // Extract the video URL
         const videoUrl = await page.evaluate(() => {
             const videoElement = document.querySelector('video');
             return videoElement ? videoElement.src : null;
