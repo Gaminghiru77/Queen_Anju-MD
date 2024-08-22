@@ -10,7 +10,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
     if(!q) return reply("Please give me a url or title")
     const search = await fbdl(q)
-    const data = search.videos[0];
+    const data = search.videos;
     const url = data.url
     
 //download video
