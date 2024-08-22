@@ -21,7 +21,8 @@ async (conn, mek, m, { from, q, reply }) => {
 
 ${joke.punchline} 😄
 
-> 𝐏𝐎𝐖𝐄𝐑𝐄𝐃 𝐁𝐘 𝐁𝐇𝐀𝐒𝐇𝐈-𝐌𝐃`;
+*© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
+*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD `;
 
         return reply(jokeMessage);
     } catch (e) {
