@@ -2,7 +2,8 @@ const {cmd , commands} = require('../command')
 const { fbdl } = require('ruhend-scraper');
 
       
-cmd({pattern: "fb",
+cmd({
+    pattern: "fb",
     desc: "To download facebook videos.",
     react: "🎥",
     category: "download",
