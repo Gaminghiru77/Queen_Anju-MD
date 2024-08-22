@@ -20,13 +20,12 @@ try{
          m.reply(`HD not found switch to SD`);
          data = result.find(i => i.resolution === "360p (SD)")
       }
-      let video = data.url      
-      conn.adReply(m.chat, m).then(() => {
-         conn.sendFile(m.chat, video, {
-            caption: `𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊`,
-            quoted: m
-         });
-      });
+      let url = data.url 
+    
+    let down = await fg.fbdl(url)
+    let downloadUrl = down.dl_url
+
+await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quoted:mek})
 
 }catch(e){
 console.log(e)
