@@ -1,5 +1,5 @@
 const {cmd , commands} = require('../command');
-const { fbdl } = require('ruhend-scraper');
+const { igdl } = require('ruhend-scraper');
 
 cmd({
     pattern: "fb",
