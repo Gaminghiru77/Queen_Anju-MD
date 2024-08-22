@@ -24,6 +24,6 @@ await conn.sendMessage(from,{video: {url:downloadUrl},mimetype:"video/mp4"},{quo
 
 }catch(e){
 console.log(e)
-  reply('${e}')
+  reply(`${e}`)
 }
 })
