@@ -4,7 +4,7 @@ const { cmd } = require('../command');
 cmd({
     pattern: "news",
     desc: "Get the latest news headlines.",
-    category: "news",
+    category: "other",
     react: "📰",
     filename: __filename
 },
@@ -24,7 +24,8 @@ async (conn, mek, m, { from, reply }) => {
 ⚠️ _${article.description}_
 🔗 _${article.url}_
 
-> POWERED BY BHASHI-MD NEWS 
+*© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
+*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD  
             `;
 
             console.log('Article URL:', article.urlToImage); // Log image URL for debugging
