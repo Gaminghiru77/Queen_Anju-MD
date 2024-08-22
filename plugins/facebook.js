@@ -45,7 +45,7 @@ try{
   try {
     await conn.sendMessage(m.chat, { video: { url: video }, caption: dev, fileName: 'fb.mp4', mimetype: 'video/mp4' }, { quoted: m });
   } catch (error) {
-    return reply(m.chat, '*`Error al enviar el video.`*', m);
+    return reply(m.chat, '*`Error download video.`*', m);
   await m.react('❌');
   }
 }catch(e){
@@ -77,7 +77,7 @@ try{
             await new Promise(resolve => setTimeout(resolve, 2000));
 
             await m.react('✅');
-            await conn.sendFile(m.chat, media.url, 'instagram.mp4', dev, null, m); 
+            await conn.sendFile(m.chat, media.url, 'instagram.mp4', m); 
         }
     } catch {
         await m.react('❌');
