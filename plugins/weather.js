@@ -45,3 +45,4 @@ Powered by OpenWeatherMap 🌦️
         return reply("⚠️ An error occurred while fetching the weather information. Please try again later.");
     }
 });
+
