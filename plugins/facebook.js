@@ -11,7 +11,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
 
   if (!args[0]) {
-    return conn.reply(m.chat, '*`INGRESA EL LINK DE FACEBOOK`*', m, fake);
+    return conn.reply(m.chat, '*`INGRESA EL LINK DE FACEBOOK`*', m);
   }
 
   await m.react('🕒');
