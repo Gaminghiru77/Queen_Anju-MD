@@ -6,7 +6,6 @@ cmd({
     pattern: "system",
     alias: ["status","botinfo"],
     desc: "To Check uptime , ram and more.",
-    react: "💻",
     category: "main",
     filename: __filename
 },
@@ -34,7 +33,6 @@ cmd({
     pattern: "runtime",
     alias: ["uptime"],
     desc: "To Check uptime",
-    react: "⏱",
     category: "main",
     filename: __filename
 },
