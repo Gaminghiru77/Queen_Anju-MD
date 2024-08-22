@@ -15,7 +15,8 @@ async (conn, mek, m, { from, reply }) => {
         const message = `
 💬 "${quote.content}"
 - ${quote.author}
-POWERED BY BHASHI-MD QUOTES
+*© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
+*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD 
         `;
         return reply(message);
     } catch (e) {
