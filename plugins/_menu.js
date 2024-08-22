@@ -75,7 +75,7 @@ ${menu.other}
 
 `
 
-await conn.sendMessage(from,{img:{config.ALIVE_IMG}},{caption:madeMenu},{quoted:mek})
+await conn.sendMessage(from,{img:{url: config.ALIVE_IMG}},{caption:madeMenu},{quoted:mek})
 }catch(e){
 console.log(e)
 reply(`${e}`)
