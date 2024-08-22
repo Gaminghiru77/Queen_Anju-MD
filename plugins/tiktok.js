@@ -1,9 +1,9 @@
 const {cmd , commands} = require('../command');
-const { igdl } = require('ruhend-scraper');
+const { ttdl } = require('ruhend-scraper');
 
 cmd({
-    pattern: "fb",
-    desc: "To download facebook videos.",
+    pattern: "tt",
+    desc: "To download tiktok videos.",
     category: "download",
     filename: __filename
 },
@@ -11,7 +11,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
 
   if (!args[0]) {
-    return reply(m.chat, '*`Please give a waild Facebook link`*', m);
+    return reply(m.chat, '*`Please give a waild Tiktok link`*', m);
   }
 
   await m.react('🕒');
@@ -40,10 +40,10 @@ try{
 
   await m.react('✅');
   let video = data.url;
-  let dev = '© 2024 Queen Anju FB Downloader | Download with ease, cherish forever.'
+  let dev = '© 2024 Queen Anju Tiktok Downloader | Download with ease, cherish forever.'
   
   try {
-    await conn.sendMessage(m.chat, { video: { url: video }, caption: dev, fileName: 'fb.mp4', mimetype: 'video/mp4' }, { quoted: m });
+    await conn.sendMessage(m.chat, { video: { url: video }, caption: dev, fileName: 'tt.mp4', mimetype: 'video/mp4' }, { quoted: m });
   } catch (error) {
     return reply(m.chat, '*`Error download video.`*', m);
   await m.react('❌');
