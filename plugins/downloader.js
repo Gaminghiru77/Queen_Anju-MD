@@ -1,4 +1,5 @@
 const {cmd , commands} = require('../command')
+const fg = require('api-dylux')
 const { fbdl } = require('ruhend-scraper');
 cmd({
     pattern: "fb",
@@ -10,7 +11,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
     if(!q) return reply("Please give me a url or title")
     const search = await fbdl(q)
-    const data = search.videos;
+    const data = search.videos[0];
     const url = data.url
     
 //download video
