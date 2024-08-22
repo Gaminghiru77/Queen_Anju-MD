@@ -2,8 +2,8 @@ const {cmd , commands} = require('../command');
 const { igdl } = require('ruhend-scraper');
 
 cmd({
-    pattern: "fb",
-    desc: "To download facebook videos.",
+    pattern: "ig",
+    desc: "To download instagram videos.",
     category: "download",
     filename: __filename
 },
@@ -11,7 +11,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
 
   if (!args[0]) {
-    return reply(m.chat, '*`Please give a waild Facebook link`*', m);
+    return reply(m.chat, '*`Please give a waild Instagram link`*', m);
   }
 
   await m.react('🕒');
@@ -24,7 +24,7 @@ try{
 
   let result = res.data;
   if (!result || result.length === 0) {
-    return reply(m.chat, '*`No resalt found.`*', m);
+    return reply(m.chat, '*`No result found.`*', m);
   }
 
   let data;
@@ -40,10 +40,10 @@ try{
 
   await m.react('✅');
   let video = data.url;
-  let dev = '© 2024 Queen Anju FB Downloader | Download with ease, cherish forever.'
+  let dev = '© 2024 Queen Anju Instagram Downloader | Download with ease, cherish forever.'
   
   try {
-    await conn.sendMessage(m.chat, { video: { url: video }, caption: dev, fileName: 'fb.mp4', mimetype: 'video/mp4' }, { quoted: m });
+    await conn.sendMessage(m.chat, { video: { url: video }, caption: dev, fileName: 'ig.mp4', mimetype: 'video/mp4' }, { quoted: m });
   } catch (error) {
     return reply(m.chat, '*`Error download video.`*', m);
   await m.react('❌');
