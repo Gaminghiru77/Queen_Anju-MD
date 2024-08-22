@@ -53,3 +53,38 @@ console.log(e)
   reply(`${e}`)
 }
 });
+
+cmd({
+    pattern: "ig",
+    desc: "To download instagrame videos.",
+    category: "download",
+    filename: __filename
+},
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+
+ if (!args[0]) {
+        return conn.reply(m.chat, '*`Please give a waild instagrame link`*', m, fake);
+    }
+    
+    try {
+        await m.react('🕑');
+        
+        let res = await igdl(args[0]);
+        let data = res.data; 
+        
+        for (let media of data) {
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
+            await m.react('✅');
+            await conn.sendFile(m.chat, media.url, 'instagram.mp4', dev, null, m); 
+        }
+    } catch {
+        await m.react('❌');
+  }
+
+}catch(e){
+console.log(e)
+  reply(`${e}`)
+}
+});
