@@ -14,7 +14,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
 
 const voice = {
-    alive: '../media/media_alive.mp3'
+    alive: 'media/media_alive.mp3'
 }
 
 let aliveMessage = ` 
