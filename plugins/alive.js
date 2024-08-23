@@ -37,7 +37,7 @@ let aliveMessage = `
 
 *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
 *💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD `
-await sendVoice(conn, from, voice.alive)
+await conn.sendVoice(conn, from, voice.alive)
 return await conn.sendMessage(from,{image: {url: config.ALIVE_IMG},caption:aliveMessage},{quoted: mek})
 }catch(e){
 console.log(e)
