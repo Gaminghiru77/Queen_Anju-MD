@@ -11,7 +11,7 @@ async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender
 try{
 
   if (!args[0]) {
-    return reply(m.chat, '*`Please give a waild Instagram link`*', m);
+    return reply('*`Please give a waild Instagram link`*');
   }
 
   await m.react('🕒');
@@ -19,23 +19,23 @@ try{
   try {
     res = await igdl(args[0]);
   } catch (error) {
-    return reply(m.chat, '*`Error obtaining data.`*', m);
+    return reply('*`Error obtaining data.`*');
   }
 
   let result = res.data;
   if (!result || result.length === 0) {
-    return reply(m.chat, '*`No result found.`*', m);
+    return reply('*`No result found.`*');
   }
 
   let data;
   try {
     data = result.find(i => i.resolution === "720p (HD)") || result.find(i => i.resolution === "360p (SD)");
   } catch (error) {
-    return reply(m.chat, '*`Error data loss.`*', m);
+    return reply('*`Error data loss.`*');
   }
 
   if (!data) {
-    return reply(m.chat, '*`No data found.`*', m);
+    return reply('*`No data found.`*');
   }
 
   await m.react('✅');
@@ -45,7 +45,7 @@ try{
   try {
     await conn.sendMessage(m.chat, { video: { url: video }, caption: dev, fileName: 'ig.mp4', mimetype: 'video/mp4' }, { quoted: m });
   } catch (error) {
-    return reply(m.chat, '*`Error download video.`*', m);
+    return reply('*`Error download video.`*');
   await m.react('❌');
   }
 }catch(e){
