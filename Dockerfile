@@ -16,4 +16,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "src/queen.js"]
+CMD ["node", "queen.js"]
