@@ -2,7 +2,6 @@ const { cmd } = require('../command');
 const { conn } = require('../config');  // Make sure you have the proper connection setup
 const {config} = require('../config');
 
-if (config.AUTO_VOICE) {
 // Voice message URLs
 const voiceMessages = {
     palayan: 'https://github.com/Mrrashmika/Queen_Anju-MD/raw/main/media/media_palayan.mp3',
@@ -82,4 +81,4 @@ cmd({
 }, async (conn, mek, m, { from }) => {
     await sendVoice(conn, from, voiceMessages.hmm);
 });
-}
+
