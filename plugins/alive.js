@@ -13,6 +13,10 @@ cmd({
 async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
 
+const voice = {
+    alive: 'https://github.com/Mrrashmika/Queen_Anju-MD/raw/main/media/media_alive.mp3'
+}
+
 let aliveMessage = ` 
 ⫷⦁[ * '-'_꩜ 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 ꩜_'-' * ]⦁⫸ 
 
@@ -32,7 +36,8 @@ let aliveMessage = `
 
 
 *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
-*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD `;
+*💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD `
+await sendVoice(conn, from, voice.alive)
 return await conn.sendMessage(from,{image: {url: config.ALIVE_IMG},caption:aliveMessage},{quoted: mek})
 }catch(e){
 console.log(e)
