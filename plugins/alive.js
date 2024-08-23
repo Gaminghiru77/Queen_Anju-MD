@@ -6,7 +6,7 @@ const {runtime} = require('../lib/functions')
 cmd({
     pattern: "alive",
     desc: "To Check the bot online or no.",
-    react: "🟢",
+    react: "🛠️",
     category: "main",
     filename: __filename
 },
@@ -37,8 +37,11 @@ let aliveMessage = `
 
 *© 𝙌𝙐𝙀𝙀𝙉 𝘼𝙉𝙅𝙐 𝘽𝙊𝙏 - MD* 
 *💻 GitHub:* github.com/Mrrashmika/Queen_Anju-MD `
-await conn.sendMessage(from, { audio: { url: voice.alive }, mimetype: 'audio/mp4', ptt: true }, { quoted: mek })
+
+await reply(from, { audio: { url: voice.alive }, mimetype: 'audio/mp4', ptt: true }, { quoted: mek })
+
 return await conn.sendMessage(from,{image: {url: config.ALIVE_IMG},caption:aliveMessage},{quoted: mek})
+
 }catch(e){
 console.log(e)
 reply(`${e}`)
