@@ -28,5 +28,7 @@ AUTO_READ_STATUS: process.env.AUTO_READ_STATUS || "true",
 MODE: process.env.MODE || "public",
 BOT_NUMBER: process.env.BOT_NUMBER || "94717775628",
 OWNER_REACT: process.env.OWNER_REACT || "🔆",
+OMDB_API_KEY: process.env.OMDB_API_KEY || "76cb7f39",
+AUTO_VOICE: process.env.AUTO_VOICE || "true",
 };
 
